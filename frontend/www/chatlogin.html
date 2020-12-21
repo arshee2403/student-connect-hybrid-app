@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <link rel="stylesheet" href="components/loader.css">
+    <script src="components/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+<link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+    <script>
+       function login_chat()
+       {
+          var login_name=$('#chat_name').val();
+          var login_id=$('#chat_id').val();
+          var login_password=$('#chat_password').val();
+        //  localStorage.c_name=login_name;
+          alert(localStorage.c_name);
+         //  localStorage.c_id=login_id;
+         alert(localStorage.c_id);
+         //  localStorage.c_pass=login_password;
+           alert(localStorage.c_pass);
+          window.location="chat.html";
+       } 
+    </script>
+</head>
+<body>
+
+   <div style="background-color:#ffffff";>
+     
+        <br><center>
+      
+         <a href="index.html" style="background-color: #33ADFF; color: white;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;text-align: center;text-decoration: none;display: inline-block;font-size:20px;"><ons-icon  icon="ion-home, material:md-home">Home</ons-icon></a>
+  <br>
+   </center>
+     <br>
+<div style="font-size:20px;font-weight:bold;">&nbsp;&nbsp;Log in to chat app.</div>
+
+<br>
+<div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Login id</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="text" id="chat_id" required></input><br><br>
+ <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Login  name</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="text" id="chat_name" ></input> 
+
+    <br>  <br>
+     <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Password</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="password" id="chat_password" ></input> 
+
+    <br>  <br>
+<center>
+  
+        <p style="margin-top: 30px;">  
+            <button  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;color:#ffffff;padding-bottom:15px;padding-top:15px;"  onclick="login_chat()">Log in</button>  &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;  <button  style="background-color: #33ADFF;width:30%;padding-bottom:15px;padding-top:15px;font-size:15px;color:#ffffff" >Cancel</button>
+        </p></center></div>
+</body>
+</html>

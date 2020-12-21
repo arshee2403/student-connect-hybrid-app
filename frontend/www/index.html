@@ -1,0 +1,3448 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+<script src="components/loader.js"></script>
+<script src="lib/onsenui/js/onsenui.min.js"></script>
+<link rel="stylesheet" href="components/loader.css">
+<link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+<link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="cordova.js"></script>  
+<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+<link rel="icon" type="image/png" sizes="32x32" href="https://connectycube.com/wp-content/themes/fuzzybloks2018/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://connectycube.com/wp-content/themes/fuzzybloks2018/favicon/favicon-16x16.png">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://unpkg.com/navigo@4.3.6/lib/navigo.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/connectycube@1.2.1/dist/connectycube.min.js" defer></script>
+
+    <script src="components/js/config.js" defer></script>
+    <script src="components/js/user.js" defer></script>
+    <script src="components/js/dialog.js" defer></script>
+    <script src="components/js/message.js" defer></script>
+    <script src="components/js/listeners.js" defer></script>
+    <script src="components/js/helpers.js" defer></script>
+    <script src="components/js/app.js" defer></script>
+    <script src="components/js/login.js" defer></script>
+    <script src="components/js/route.js" defer></script>
+ 
+<script>
+   
+	 ons.platform.select('ios');
+    
+/*  ons.ready(function(){
+
+   myNavigator.pushPage('home.html');
+
+});
+   ons.ready(function() {
+  ons.disableDeviceBackButtonHandler();
+
+  // Use Cordova handler
+  window.document.addEventListener('backbutton', function() {
+    // Handle backbutton event
+  }, false);
+});*/
+
+ons.ready(function() {
+ 
+  if(localStorage.userFound!='Y')
+  {
+    fn.load('mainhome.html');
+    document.getElementById('menu').removeAttribute("swipeable")
+  }
+  else
+  {
+    document.getElementById('menu').setAttribute("swipeable","true")
+    fn.load('home.html');
+  }
+});
+ 
+
+       /* document.addEventListener("deviceready", onDeviceReady, false);
+
+        function onDeviceReady() {
+            
+        }
+
+        function onConfirm(buttonIndex) {
+          
+            if (buttonIndex == 1) { // OK button
+
+                navigator.app.exitApp(); // Close the app
+
+
+
+            }
+
+        }
+
+
+        ons.ready(function() {
+            ons.disableDeviceBackButtonHandler();
+            window.document.addEventListener('backbutton', function() {
+
+                if (myNavigator.pages.length > 1) {
+                    //      alert(myNavigator.pages.length);
+                    myNavigator.popPage();
+                    menu.close();
+                } else {
+
+                    navigator.notification.confirm(
+                        'Are you sure to close the app?', // message
+                        onConfirm, // callback to invoke with index of button pressed
+                        'Student Connect', // title
+                        ['Yes', 'No'] // buttonLabels
+                    );
+
+              
+                }
+
+            }, false);
+        });
+*/
+
+  window.fn = {};
+ 
+ window.fn.open = function () {
+  var menu = document.getElementById('menu');
+  menu.open();
+};
+
+window.fn.load = function (page) {
+  var menu = document.getElementById('menu');
+  var myNavigator = document.getElementById('myNavigator');
+ menu.close();
+  myNavigator.resetToPage(page, { animation: 'fade' });  
+};
+
+  var myNavigator;
+  ons.ready(function() {
+  myNavigator = document.querySelector('ons-navigator');
+  myNavigator.addEventListener('postpush', function(event) {
+  console.log(event);
+      });
+    });
+
+  var showPopover = function(target) {
+  document.getElementById('popover').show(target);
+};
+
+var showPopover2 = function(target) {
+  document.getElementById('popover2').show(target);
+};
+
+var showPopover3 = function(target) {
+  document.getElementById('popover3').show(target);
+};
+
+var showPopover4 = function(target) {
+  document.getElementById('popover4').show(target);
+};
+var showdm = function(target) {
+  document.getElementById('dm').show(target);
+};
+
+ var hidedm = function() {
+  document.getElementById('dm').hide();
+};
+
+var hidePopover = function() {
+  document.getElementById('popover').hide();
+};
+    
+ons.ready(function() {
+      console.log("Onsen UI is ready!");
+    });
+
+ /*document.addEventListener('init', function(event) {
+  var page = event.target;
+  if (page.id === 'events') {
+    page.querySelector('#push-button').onclick = function() {
+      document.querySelector('#myNavigator').pushPage('eventdescription.html', {data: {title: 'Page 2'}});
+    };
+  } else if (page.id === 'eventdesc') {
+    page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+  }
+  
+});*/
+   
+function showModal() {
+  var modal = document.querySelector('ons-modal');
+  modal.show();
+    }
+      
+function hideModal() {
+  var modal = document.querySelector('ons-modal');
+  modal.hide();
+    }
+
+function printDiv(divName) {
+
+ var printContents = document.getElementById(divName).innerHTML;
+ w=window.open();
+ w.document.write(printContents);
+ w.print();
+ w.close();
+}
+ //You may use vanilla JS, I just chose jquery
+
+/*$('.openmodale').click(function (e) {
+         e.preventDefault();
+         $('.messagemodal').addClass('opened');
+    });
+$('.closemodale').click(function (e) {
+         e.preventDefault();
+         $('.messagemodal').removeClass('opened');
+    });*/
+
+
+ 
+function show(select_item) {
+        if (select_item == "Student") {
+    	  onlyalumni.style.visibility='visible';
+    		onlyalumni.style.display='block';
+        }
+        else if(select_item == "Faculty")
+        {
+         hidefees.style.visibility='hidden';
+         hidefees.style.display='none';
+         hidefromfaculty.style.visibility='hidden';
+         hidefromfaculty.style.display='none';
+         
+         onlyfaculty.style.visibility='visible';
+          onlyfaculty.style.display='block';
+           hidequery.visibility='hidden';
+         hidequery.style.display='none'
+         }
+         else if(select_item == "Parent")
+        {
+         hidequery.visibility='hidden';
+         hidequery.style.display='none';
+         onlyalumni.style.visibility='hidden';
+    		onlyalumni.style.display='none';
+        }
+        else if(select_item == "Alumni")
+        {
+         hidealumni.style.visibility='visible';
+    	   hidealumni.style.display='block';
+         hidefees.style.visibility='hidden';
+         hidefees.style.display='none';
+         hidequery.visibility='hidden';
+         hidequery.style.display='none';
+         onlyalumni.style.visibility='hidden';
+    		onlyalumni.style.display='none';
+        }
+}
+
+function sign_up() {
+       localStorage.loginname=$('#loginname').val();
+          var mailid = $('#mailid').val();
+          var e = document.getElementById("usertype");
+          var strUser = e.options[e.selectedIndex].text;
+          localStorage.email=mailid;
+          localStorage.usertype=strUser;
+        //  alert(localStorage.email);
+        //  alert(localStorage.usertype);
+          $.ajax({ 
+          url: "http://projects.techsilium.com/sc/signup.php",
+          data: { usertype: strUser,user_mail: mailid },
+          success: function (data,status) {
+          var dataParsed = JSON.parse(data);
+         localStorage.mobile=dataParsed.Details;
+        //alert(localStorage.mobile);
+          if (dataParsed.log==='userfound')
+            {
+              $.ajax({
+                       type: "GET",
+                        url: "http://projects.techsilium.com/sc/sendotp.php?phone=" + localStorage.mobile,
+                       success: function(data, status) {
+                       var obj = JSON.parse(data);
+                        localStorage.session_id = obj.Details;
+                        if (obj.Status === 'Error') {
+                            ons.notification.alert("Something went wrong. Please try again.");
+                             hideModal('#load-screen');
+                              } 
+                        else if (obj.Status === 'Success') {
+                                        ons.notification.alert('success');
+                                      fn.load('page3.html');
+                               }
+            }});
+            }
+            else if (dataParsed.log==='usernotfound')
+            {
+              ons.notification.alert('Signup Failed...');
+              delete localStorage.mobile;
+            }
+            },
+             error: function (request,status,error) {
+                        alert("Facing some network issue try again later");
+                    }
+        });
+   }
+
+ function password()
+ {
+   var regularExpression = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{10,16}$/;
+ var usertype=localStorage.usertype;  
+ var pswd = $('#confirm_password').val(); 
+          var email=localStorage.email;
+         //alert(pswd);
+         //alert(usertype);
+         //alert(email);
+         if(!regularExpression.test(pswd)) {
+        alert("Password should contain atleast 10 characters one number and one special character");
+        return false;
+    }
+    else{
+      
+    
+           $.ajax({
+            url: "https://projects.techsilium.com/sc/pswd.php",
+            data: {password: pswd, usertype: usertype, email: email},
+            success: function (data,status) {
+            var dataParsed = JSON.parse(data);
+           // alert(dataParsed);
+             console.log(dataParsed);
+            if (dataParsed.Status==='pswdsuccess')
+            {
+            //fn.load('login.html');
+            localStorage.password=pswd;
+          ons.notification.toast('Password set successfully.', {timeout: 3000});
+          }
+            else
+            {
+              ons.notification.alert('Password Failed...');
+            }
+            },
+             error: function (request,status,error) {
+                        alert("Facing some network issue try again later");
+                    }
+        });
+        //alert('start');
+          ConnectyCube.createSession(function(error, session) {
+
+  var userProfile = {
+       'login': localStorage.loginname,
+    'password': localStorage.password,
+       
+};
+
+ConnectyCube.users.signup(userProfile, function(error, user){
+  //alert(JSON.stringify(user));
+localStorage.chatid=user.id;
+localStorage.chat_login=user.login;
+ ons.notification.toast('Your chat ID:'+localStorage.chatid+'Your chat login name:'+localStorage.chat_login);
+
+});
+
+});
+ $.ajax({
+        type: "get",
+         url: "http://projects.techsilium.com/sc/chat_signup.php",
+          data: {chatid:localStorage.chatid,chatlogin:localStorage.chat_login,password:localStorage.password},
+          success: function(data) {
+                        var dataParsed = JSON.parse(data);
+                          if(dataParsed.status==="inserted")
+              {
+                fn.load('login.html');
+              }
+              else{
+                ons.notification.alert("Press the save button once again...");
+              }
+                        
+ },
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+});
+}
+   }
+ 
+
+    
+function loadPDF(filename)
+{
+  var file=filename;
+  //alert(file);
+  var ref = cordova.InAppBrowser.open(file, '_system', 'location=yes');
+var myCallback = function(event) { alert(event.url); }
+ref.addEventListener('loadstart', myCallback);
+ref.removeEventListener('loadstart', myCallback);
+}
+
+    
+  $(document).on('init', function(event) {
+page = event.target; 
+
+ if (page.id === 'loginpage' || page.id === 'first-page' ||page.id === 'second-page' ||page.id === 'third-page' ) {
+    document.getElementById('menu').removeAttribute("swipeable")
+ }else{
+  document.getElementById('menu').setAttribute("swipeable","true")
+    }
+}) ;
+
+function checkPasswordMatch() {
+    var password = $("#password").val();
+    var confirmPassword = $("#confirm_password").val();
+
+    if (password != confirmPassword)
+        alert("password doesnt match");
+    else
+       {
+           passbtn.style.visibility='visible';
+    	        	passbtn.style.display='block';
+       }
+}
+
+$(document).ready(function () {
+   $("#txtConfirmPassword").keyup(checkPasswordMatch);
+});
+function myFunction() {
+  var x = document.getElementById("password1");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}
+ 
+
+  
+
+   
+function login()
+{
+  document.getElementById('menu').setAttribute("swipeable","true");
+          var username= $('#username').val();
+          var password=$('#password1').val();
+          var e = document.getElementById("usertype");
+          var strUser = e.options[e.selectedIndex].text;
+          $.ajax({
+          url: "http://projects.techsilium.com/sc/new2.php",
+          data: { usertype: strUser,username: username,password:password},
+          success: function (data,status) {
+      //      alert(data); 
+          var dataParsed = JSON.parse(data);
+       //   alert(dataParsed);
+        //  alert(dataParsed.status);    
+          if (dataParsed.status==='login') {
+            localStorage.loggedin=true;
+         if(strUser=="Parent")
+         {
+          var details=dataParsed.Details;
+           var fields = details.split("-");
+
+                                        localStorage.userLoggedInType = fields[0];
+                                        localStorage.parentid = fields[1];
+                                        localStorage.parentemail = fields[2];
+                                        localStorage.username = fields[3];
+                                        localStorage.userFound = 'Y';
+         }
+         else if(strUser=="Student")
+         {
+            var details=dataParsed.Details;
+            var fields = details.split("-");
+
+                                        localStorage.userLoggedInType = fields[0];
+                                        localStorage.student_prn = fields[1];
+                                        localStorage.username = fields[2];
+                                        localStorage.student_email = fields[3];
+                                        localStorage.batch= fields[4]+"-"+fields[5]+"-"+fields[6];
+                                        localStorage.course_name= fields[7];
+                                        
+                                        localStorage.userFound = 'Y';
+         }
+         else if(strUser=="Faculty")
+         {
+            var details=dataParsed.Details;
+            var fields = details.split("-");
+
+                                        localStorage.userLoggedInType = fields[0];
+                                        localStorage.faculty_id = fields[1];
+                                        localStorage.faculty_course = fields[2];
+                                        localStorage.username = fields[3];
+                                        localStorage.faculty_email= fields[4];
+                                        localStorage.userFound = 'Y';
+         }
+         else if(strUser=="Alumni")
+         {
+            var details=dataParsed.Details;
+            var fields = details.split("-"); 
+
+                                        localStorage.userLoggedInType = fields[0];
+                                        localStorage.alumni_prn = fields[1];
+                                        localStorage.alumni_email = fields[2];
+                                        localStorage.alumni_id = fields[3];
+                                        localStorage.alumni_course= fields[4];
+                                        localStorage.alumni_batch= fields[5]+"-"+fields[6]+"-"+fields[7];
+                                        localStorage.username= fields[8];
+                                        localStorage.userFound = 'Y';
+    //                                    alert(localStorage.alumni_batch);
+         }
+
+         document.querySelector('#myNavigator').pushPage('home.html');
+       //   ons.notification.toast("You are logged in as "+localStorage.userLoggedInType, {timeout: 3000});
+          ons.notification.toast("You are logged in as "+localStorage.userLoggedInType+'.    Your name:'+localStorage.username, {timeout: 4000});
+
+
+
+          }
+          else{
+              ons.notification.alert('Incorrect Username or Password');
+             delete localStorage.userLoggedInType ;
+                                     delete    localStorage.parentid;
+                                      delete   localStorage.parentemail ;
+                                      delete   localStorage.userFound ;
+                                     delete   localStorage.student_prn ;
+                                  delete  localStorage.userLoggedInType;
+                                     delete     localStorage.student_email ;
+                                     delete     localStorage.batch;
+                                       delete  localStorage.course_name;
+                                      delete localStorage.faculty_id;
+                                      delete  localStorage.faculty_course;
+                                     delete   localStorage.username;
+                                     delete   localStorage.faculty_email;
+          }
+          },
+          error: function (request,status,error) {
+          alert("Facing some network issue try again later");
+          }
+        }); 
+
+
+/* $.ajax({
+        type: "get",
+         url: "http://projects.techsilium.com/sc/array.php",
+          data: {},
+          success: function(data) {
+                          var dataParsed = JSON.stringify(data);
+                          localStorage.cc_users=dataParsed;
+                          alert(localStorage.cc_users);
+ },
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+});*/
+/*var u = $.ajax({
+          url: "http://projects.techsilium.com/ReadUsersDataJSON.php",
+          dataType: "json",
+          async: false
+          }).responseText;
+    
+		a=u.replace(/"(\w+)"\s*:/g, '$1:');
+localStorage.cc_users=a;
+*/
+}
+
+function verifyOTP() {
+var otp = document.getElementById('otp').value;
+ //alert(otp);
+ //alert(localStorage.session_id);
+             $.ajax({
+                      type: "GET",
+                        url: "http://projects.techsilium.com/2factor_in_verify_otp.php?sid=" + localStorage.session_id + "&otp=" + otp,
+                        success: function(data, status) {
+                        var obj = JSON.parse(data);
+                        var n = data.includes("Error");
+                        if (n == true) {
+                             ons.notification.alert("OTP didn't match");
+                             } 
+                        else {
+                               alert('success');
+                               localStorage.otpVerified = true;
+                                fn.load('password.html');
+                                       }
+                                },
+                                  error: function(request, status, error) {
+                                   
+                                    ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                                }
+                                });
+                        }
+
+
+  function extraCurricular()
+       {
+          $.ajax({
+                            type: "get",
+                             url: "http://projects.techsilium.com/sc/show_achievements.php",
+                           data: {achievement_type:"extra-curricular"},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#extra").html(data);
+                                hideModal();
+                            },
+                            error: function(request, status, error) {
+                                ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+                            });
+       }
+
+
+ function sports()
+       {
+          $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_achievements.php",
+                            data: {achievement_type:"sports"},
+                            success: function(data) {
+                                $("#sports").html(data);
+                                hideModal();
+                              },
+                            error: function(request, status, error) {
+                                            ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+                                  });
+}
+
+ function upload()
+ {
+   //alert('hello');
+   filename=document.getElementsByName('fileToUpload');
+   //alert(filename);
+   $.ajax({
+          type: "get",
+          url: "http://projects.techsilium.com/sc/upload_pdf.php",
+          data: {filename:filename},
+           success: function(data) {
+      //     alert(data);
+            alert('uploaded');
+            },
+            error: function(request, status, error) {
+              ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                     }
+                     });
+ }
+                       
+function meetup()
+{
+   $.ajax({
+        type: "get",
+         url: "http://projects.techsilium.com/sc/my_meetup.php",
+         data: {batch:localStorage.alumni_batch,id:localStorage.alumni_id},
+         success: function(data) {
+                           //   alert(data);
+           $("#my_meetup").html(data);
+                   },
+          error: function(request, status, error) {
+            ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+        }
+});
+}
+
+function only_my_opportunity()
+{
+$.ajax({
+        type: "get",
+         url: "http://projects.techsilium.com/sc/my_opportunities.php",
+        data: {alumni_id:localStorage.alumni_id},
+       success: function(data) {
+                           //   alert(data);
+          $("#myOpportunity").html(data);
+                  },
+             error: function(request, status, error) {
+               ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                 }
+                  });
+}
+
+function delete_opportunity(id)
+{
+  
+   $.ajax({
+            url: "http://projects.techsilium.com/sc/delete_opportunity.php",
+            data: { id:id},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+     //         alert(dataParsed);
+              if(dataParsed.status==="deleted")
+              {
+                ons.notification.alert("Deleted..!");
+              }
+              else{
+                ons.notification.alert("Failed");
+              }
+             }
+          });
+}
+
+function delete_noti(id)
+{
+  //alert(id);
+   $.ajax({
+            url: "http://projects.techsilium.com/sc/delete_noti.php",
+            data: { id:id},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+       //       alert(dataParsed);
+              if(dataParsed.status==="deleted")
+              {
+                ons.notification.alert("Deleted..!");
+              }
+              else{
+                ons.notification.alert("Failed");
+              }
+              }
+          });
+}
+
+function my_noti()
+{
+// alert(localStorage.username);
+  $.ajax({
+       type: "get",
+       url: "http://projects.techsilium.com/sc/my_noti.php",
+       data: {user:localStorage.username},
+      success: function(data) {
+                           //   alert(data);
+        $("#delete_noti").html(data);
+        hideModal();
+        },
+        error: function(request, status, error) {
+           ons.notification.alert("We are facing some connectivity issues at the moment. Please check your  internet connection and try again later.");
+                }
+                });
+}
+
+function delete_meetup(id)
+{
+ $.ajax({
+            url: "http://projects.techsilium.com/sc/delete_meetup.php",
+             data: { id:id},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+  //            alert(dataParsed);
+              if(dataParsed.status==="deleted")
+              {
+                ons.notification.alert("Deleted..!");
+              }
+              else{
+                ons.notification.alert("Failed");
+              }}
+          });
+}
+
+function intercollege()
+       {
+          $.ajax({
+                            type: "get",
+                           url: "http://projects.techsilium.com/sc/show_events1.php",
+                            data: {event_type:"inter-college"},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#intercollege").html(data);
+                                hideModal();
+                               },
+                            error: function(request, status, error) {
+                                ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+                            });
+       }
+
+function update_detail () {
+          var current_status = $('#current_status').val();
+          var qualification= $('#qualification').val();
+          var work_experience = $('#work_experience').val();
+    //      alert(current_status);
+      //    alert(qualification);
+        //  alert(work_experience);
+         $.ajax({
+            url: "http://projects.techsilium.com/sc/alumni_other.php",
+            data: { current_status: current_status, qualification: qualification, work_experience:work_experience,alumni_id:localStorage.alumni_id},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+          //    alert(dataParsed);
+              if(dataParsed.status==="updated")
+              {
+                ons.notification.alert("updated");
+              fn.load('profileend.html');
+              }
+              else{
+                ons.notification.alert("Failed");
+              }
+            }
+          });
+}
+
+function logout()
+{
+delete localStorage.userLoggedInType ;delete localStorage.username;delete    localStorage.parentid;
+ delete   localStorage.parentemail ;delete   localStorage.userFound ;
+delete   localStorage.student_prn ; delete  localStorage.userLoggedInType;
+delete     localStorage.student_email ;delete  localStorage.batch;
+delete  localStorage.course_name;delete localStorage.faculty_id;
+delete  localStorage.faculty_course; delete   localStorage.username;delete  localStorage.alumni_id; delete   localStorage.alumni_email;
+delete   localStorage.alumni_course;delete  localStorage.alumni_batch;
+delete   localStorage.alumni_prn;delete   localStorage.faculty_email;fn.load('mainhome.html');
+}
+
+  </script>
+ 
+   <style>
+.input-container {
+  display: flex;
+  width: 80%;
+  margin-bottom: 15px;
+ 
+}
+
+/* Style the form icons */
+.icon {
+  padding: 10px;
+  background: #33ADFF;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+ 
+}
+
+/* Style the input fields */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+ 
+}
+.input-field ::placeholder
+{
+  font-size:40px;
+}
+.inputStyle{
+ background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;
+}
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+body {font-family: Verdana, sans-serif;}
+.mySlides {display: none;}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+/*utsav aarohan heading */
+.outline-it {
+  background-color: #ffffff;padding-top:15px;padding-bottom:15px;
+  font-family: Arial;
+  font-size: 50px;
+  font-weight: 900;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  -wwebkit-text-stroke: 1px #2b93d8;
+  color: white;
+  font-style: italic;
+
+  /* lifted from
+    https://css-tricks.com/adding-:       stroke-to-web-text/
+  */
+text-shadow:3px 3px 0 #2b93d8,
+     -1px -1px 0 #2b93d8,  
+     1px -1px 0 #abcfe8,
+     -1px 1px 0 #abcfe8,
+     1px 1px 0 #abcfe8;
+}
+/*tables  */
+#combinations {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+
+#combinations td, #combinations th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#combinations tr:nth-child(even){background-color: #f2f2f2;}
+
+#combinations tr:hover {background-color: #ddd;}
+
+#combinations th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #33ADFF;
+    color: white;
+}
+/* More Button / Dropdown Menu */
+
+.social-icons {
+  text-align: center;
+  }  
+.social-icons li {
+  display:inline-block;
+  list-style-type:none;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  }
+.social-icons li a {
+  border-bottom: none;
+  }
+.social-icons li img {
+  width:40px;
+  height:40px;
+  margin-right: 20px;
+}
+/*Batch Mates */
+.main {
+    max-width: 500px;
+    margin: auto;
+}
+.row {
+    margin: 8px -16px;
+}
+
+/* Add padding BETWEEN each column */
+.row,
+.row > .column {
+    padding: 8px;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 25%;
+}
+
+/* Clear floats after rows */ 
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Content */
+.content {
+    background-color: white;
+    padding: 10px;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+    .column {
+        width: 50%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 50%;
+    }
+}
+div.main
+{
+    background-color:#f2f8fd;
+   font-size:20px;
+   text-align-last: left;
+   padding-left: 15px;
+   font-family: Arial, Helvetica, sans-serif;
+   border: 5px solid  #2b93d8;
+color: #33ADFF;
+}
+
+ons-button.btn{
+   
+    color: white;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    padding: 10px 40px;
+    font-size: 20px;
+   margin-left: 10px;
+}
+
+
+/* Extra styles for the cancel button */
+
+
+/* Center the image and position the close button */
+
+
+.container{
+    
+    padding: 16px;
+    color: #33ADFF;
+    font-size: large;
+     background-color:#f2f8fd;
+   font-size:20px;
+   font-family: Arial, Helvetica, sans-serif;
+   border: 5px solid  #2b93d8;
+color: #33ADFF;
+height:auto;
+}
+.push-button {
+    background-color: #33ADFF; /*Green */
+    border:none;
+    width: 180px;
+    height: 100px;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid white;
+}
+
+.tech-slideshow {
+  height: 200px;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+}
+
+.tech-slideshow > div {
+  height: 200px;
+  width: 2526px;
+  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/collage.jpg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transform: translate3d(0, 0, 0);
+}
+.tech-slideshow .mover-1 {
+  animation: moveSlideshow 12s linear infinite;
+}
+.tech-slideshow .mover-2 {
+  opacity: 0;
+  transition: opacity 0.5s ease-out;
+  background-position: 0 -200px;
+  animation: moveSlideshow 15s linear infinite;
+}
+.tech-slideshow:hover .mover-2 {
+  opacity: 1;
+}
+
+@keyframes moveSlideshow {
+  100% { 
+    transform: translateX(-66.6666%);  
+  }
+}
+div.bg
+{
+    background-color:#f2f8fd;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+.box
+{
+    background-color:#f2f8fd;
+    margin: 25px;
+    padding: 25px;
+height:  250px;
+border: 5px solid  #2b93d8;
+color: #33ADFF;
+font-size: 20px;
+padding: 10px;
+font-family: Arial, Helvetica, sans-serif;
+};
+
+
+.cancelbtn {
+       width: 100%;
+    }
+   
+h4{
+      font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+ }
+
+.listitem
+    {
+      margin-left:20px;font-family: Arial, Helvetica, sans-serif;font-size:15px;
+    }
+</style>
+</head>
+
+
+<body>
+
+<ons-splitter>
+  <ons-splitter-side id="menu" side="left" width="300px" collapse swipeable>
+    <ons-page>
+      <ons-list>
+    
+     
+    <ons-list-title style="font-weight: bold;font-size: 15px;padding: 15px 20px 15px 100px;background-color:#33ADFF;color:#ffffff; ">General</ons-list-title>
+      <ons-list-item class="listitem" onclick="fn.load('home.html')" tappable style="background:url(home.png) left no-repeat;">
+       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Home </ons-list-item>
+      <div id="hidefromfaculty" ><ons-list-item class="listitem"  onclick="fn.load('notifications.html')" tappable style=" background:url(notification.png) left no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Notifications</ons-list-item></div>
+      <div id="onlyfaculty" style="display:none;">
+      <ons-list-item class="listitem"  onclick="fn.load('all_notifications.html')" tappable style=" background:url(notification.png) left no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; Notifications</ons-list-item></div>
+      <ons-list-item class="listitem"  onclick="fn.load('events.html')" tappable style="background:url(events.png) left no-repeat;">
+       &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Events</ons-list-item>
+      <ons-list-item class="listitem"  onclick="fn.load('Achievements.html')" tappable style="background:url(achivement.png) left no-repeat;"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Achievements</ons-list-item>
+      <div id="hidequery">
+       <ons-list-item class="listitem"  onclick="fn.load('Query.html')" tappable style="background:url(query.png) left no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Query</ons-list-item></div>
+       <div id="hidealumni" style="display:none;">
+      <ons-list-item  tappable class="listitem"  expandable style="margin-left:10px;font-family: Arial, Helvetica, sans-serif;font-size:15px;">
+      <div class="left">
+      <img  src="alumni.jpg" style="left no-repeat;margin-left:0px;">
+      &nbsp;&nbsp;&nbsp;Alumni</div>
+      <div class="expandable-content">
+        <ons-list-item class="listitem"  onclick="fn.load('opportunity.html')" tappable style="background:url(opportunity.png) left no-repeat;"> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Opportunity </ons-list-item>
+         <ons-list-item class="listitem"  onclick="fn.load('profile.html')" tappable style="background:url(profile.png) left no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;MyProfile</ons-list-item>
+        <ons-list-item class="listitem"  onclick="fn.load('MyBatch.html')" tappable style="background:url(batch.png) left no-repeat;">
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;MyBatch</ons-list-item>
+        <ons-list-item class="listitem"  onclick="fn.load('MeetUp.html')" tappable style="background:url(meetup.jpg) left no-repeat;">
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;MeetUp</ons-list-item></div></ons-list-item></div>
+        <div id="onlyalumni" > 
+          <ons-list-item class="listitem"  onclick="fn.load('Alumni.html')" tappable style="background:url(opportunity.png) left no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Opportunity</ons-list-item>
+          </div>
+        <div id="hidefees">  
+          <ons-list-item class="listitem"  onclick="fn.load('Fees.html')" tappable style="background:url(fees.png) left no-repeat;">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Fees</ons-list-item>
+          </div>
+          <ons-list-title  style="font-weight: bold;font-size: 15px;padding: 15px 20px 15px 100px;background-color:#33ADFF;color:#ffffff; ">Extra</ons-list-title>
+            <ons-list-item class="listitem"  onclick="fn.load('Introduction.html')" tappable style=" background:url(introduction.png) left no-repeat;">
+             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Introduction
+          </ons-list-item>
+          <ons-list-item class="listitem"  onclick="fn.load('Courses.html')" tappable style="background:url(cousesoffered.png) left no-repeat;">
+             &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Courses Offered
+          </ons-list-item>
+          <ons-list-item class="listitem"  onclick="fn.load('faculty.html')" tappable style="background:url(faculty.png) left no-repeat;">
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Faculty
+          </ons-list-item>
+          <ons-list-item class="listitem"  onclick="fn.load('eligibility.html')" tappable style="background:url(eligibilty.png) left no-repeat;">
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Eligibility Criteria
+          </ons-list-item>
+          <ons-list-item class="listitem"  onclick="fn.load('ruiaitemonthly.html')" tappable style="background:url(rm.png) left no-repeat;">
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;RuiaiteMonthly
+          </ons-list-item>
+          <ons-list-item class="listitem" onclick="fn.load('utsav.html')" tappable style="background:url(fest.png) left no-repeat;">
+            &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Utsav Aarohan
+          </ons-list-item>
+
+        
+       
+      </ons-list>
+    
+    </ons-page>
+  </ons-splitter-side>
+  <ons-splitter-content id="content">
+
+    <ons-navigator id="myNavigator" page="mainhome.html"></ons-navigator>
+  </ons-splitter-content>
+</ons-splitter>
+
+
+<ons-template id="mainhome.html">
+  
+<ons-page id="first-page">
+  
+    <ons-toolbar>
+     <div class="center">
+     <img src="download.png" width="100%" ></div>
+</ons-toolbar>
+
+<div class="tech-slideshow">
+  <div class="mover-1"></div>
+  <div class="mover-2"></div>
+</div>
+<div class="bg">
+<ons-button class="push-button" onclick="fn.load('Introduction.html')">Introduction</ons-button><ons-button class="push-button" onclick="fn.load('eligibility.html')">Eligibility<br/>Criteria</ons-button>
+<ons-button class="push-button" onclick="fn.load('Courses.html')">Courses Offered</ons-button><ons-button class="push-button" onclick="fn.load('faculty.html')">Faculty</ons-button>
+<ons-button class="push-button" >Committees</ons-button><ons-button class="push-button" onclick="fn.load('utsav.html')">Events</ons-button>
+<br />
+<div class="box">
+<center>Looking for more
+more personalized
+experience?<br><br>
+<ons-button id="buttonmaterial" style="background-color: #33ADFF;width:50%;padding:5px;font-size:15px;" onclick="fn.load('page2.html')"><span>SIGN UP</span></ons-button>
+<br /><br />
+Already registered?&nbsp;<ons-button modifier="quiet" style="color: #33ADFF;font-size: 20px;" onclick="fn.load('login.html')">Login</a></center> 
+</div> </div><script>
+document.getElementById('menu').removeAttribute("swipeable")
+</script>
+</ons-page></ons-template>
+
+
+
+                                    
+  <ons-template id="page2.html">
+    <ons-page id="second-page">
+        <ons-toolbar >
+<div class="center">
+      <img src="download.png" width="100%">
+        </div>
+  
+      </ons-toolbar>
+      
+ <div style="background-color:#ffffff";>     
+<br> <br>
+<div style="font-size:20px;font-weight:bold;">&nbsp;&nbsp;Sign Up to Student Connect.</div><br> <br><br> <br>
+
+<div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;UserType</div>
+<select id="usertype"  required style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;"  onChange="java_script_:show(this.options[this.selectedIndex].value)" ><option value="Student">Student</option>
+    <option value="Faculty">Faculty</option>
+    <option value="Parent">Parent</option>
+    <option value="Alumni">Alumni</option>
+  </select><br /><br />
+    
+<div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Mail Id</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="text" id="mailid" ></input> <br>  <br>
+
+<div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Enter login name for chat</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="text" id="loginname" ></input> <br>  <br>
+ <center> <p style="margin-top: 30px;">  
+            <ons-button id="signup"  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;" onclick="sign_up()"  >Sign up</ons-button>  &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;  <ons-button  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;" onclick="fn.load('mainhome.html')">Cancel</ons-button><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </p>  </center></div>
+       </ons-page>
+  </ons-template>
+
+ 
+ 
+  <ons-template id="page3.html">
+  <ons-page id="third-page">
+  <ons-toolbar>
+  <div class="left"><img src="download.png" width="100%"></div>
+  </ons-toolbar>
+  <div class="otpTemlpate" style="background-color:#ffffff;" ><br /><br /><br /><br /><br /><br /><br /><br />
+  <input id="otp" style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;text-align:center" type="number"  placeholder="Enter OTP" required></input><br><br>
+  <center>
+  <ons-button id="verifyOTP"  style="background-color: #33ADFF;width:40%;padding:5px;font-size:15px;" onclick="verifyOTP()">Submit</ons-button></center>
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />  </div>
+ 
+    </ons-page>
+  </ons-template>
+ 
+ 
+ 
+  <ons-template id="password.html">
+    <ons-page>
+       <ons-toolbar>
+<div class="left">
+      <img src="download.png" width="100%">
+        </div>
+      </ons-toolbar><div class="otp" style="background-color:#ffffff;" ><br /><br /><br /><br /><br /><br />
+      <br /><br />
+      <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Password</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="password" id="password" ></input> <br>  <br>
+
+  <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Confirm Password</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="password" id="confirm_password" onChange="checkPasswordMatch();"></input> <br><br>  <div class="registrationFormAlert" id="divCheckPasswordMatch">
+</div><br><br><br> <center> <p style="margin-top: 30px;">  
+      <div id="passbtn" style="display:none">      <ons-button id="insertPassword"  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;" onclick="password()">Save</ons-button>  &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;  <ons-button  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;" ">Cancel</ons-button><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        </p>  </center></div></div>
+    </ons-page>
+  </ons-template>
+
+
+
+
+<template id="login.html">
+<ons-page id="loginpage" >
+ <ons-toolbar >
+<div class="left">
+      <img src="download.png" width="100%">
+        </div><div class="right" > <ons-toolbar-button modifier="quiet" style="color:#33ADFF;font-weight:bold;" onclick="fn.load('page2.html')">Sign up</ons-toolbar-button>
+       </div>
+</ons-toolbar>
+
+<div style="background-color:#ffffff";><br>
+<div style="font-size:20px;font-weight:bold;">&nbsp;&nbsp;Log in to Student Connect.</div>
+
+<br>
+<div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;UserType</div>
+<select id="usertype"  required style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;"  onChange="java_script_:show(this.options[this.selectedIndex].value)" ><option value="Student">Student</option>
+    <option value="Faculty">Faculty</option>
+    <option value="Parent">Parent</option>
+    <option value="Alumni">Alumni</option>
+  </select><br /><br /><div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Username</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="email" id="username" required></input><br><br>
+ <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Password</div>
+<input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="password" id="password1" ></input> <br>  <br>
+<div style="font-size:15px;color:#808080;font-weight:90;margin-left:10px;"><input type="checkbox" onclick="myFunction()">&nbsp;&nbsp;Show Password</div>
+    <br>  <br>
+<center>
+  <div style="font-size:15px;color:#808080;font-weight:90;"><ons-button modifier="quiet" onclick="fn.load('page3.html')">Forgot Password?</ons-button></div>
+        <p style="margin-top: 30px;">  
+            <ons-button  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;"  onclick="login()">Sign in</ons-button>  &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;  <ons-button  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;"  >Cancel</ons-button>
+        </p>  </center>
+   <br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+</ons-page>
+</template>
+
+
+<template id="home.html">
+  
+    
+    <ons-page>
+     <ons-toolbar >
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div><div class="center">
+          HOME
+        </div>  <div class="right">
+          <ons-toolbar-button onclick="logout()">
+           Logout
+          </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+      <div style="background-color:#ffffff;">
+        <br><br>
+      <img src="download.png" style="height:40%;display: block;margin-left: auto;margin-right: auto;width:60%; "/>
+      <br>
+      <p style="text-align:center;font-size:20px;">Welcome to College's name</p>
+      <br> <ul class="social-icons">
+    <li><a href="https://www.facebook.com/search/top/?q=ramnarain%20ruia%20college"><img src='facebook.jpg' /></a></li>
+<li><a href="https://www.instagram.com/theruiaite/"><img src='instagram.jpg' style="border-radius:200px;" /></a></li>
+ <li><a href="https://www.youtube.com/channel/UC5yogTb6z77a6manYhkMJLw"><img src='youtube.jpg' style="border-radius:200px;" /></a></li>
+ <li><a href="https://twitter.com/TheRuiaite"><img src='twitter.png' style="border-radius:200px;" /></a></li>
+ </ul><br><br>
+   <center><a href="chatlogin.html" style="background-color: #33ADFF; color: white;padding-top:5px;padding-bottom:5px;padding-left:5px;padding-right:5px;text-align: center;text-decoration: none;display: inline-block;font-size:20px;">Start To Chat</a></center>
+      <br><br>
+      <div  style="text-align:center;font-size:20px;background-color:#33ADFF ;color:#ffffff;padding-top:5px;padding-bottom:5px;">Recent Notifications</div>
+      <br><div id="recentnoti"></div>
+       <br><br><div  style="text-align:center;font-size:20px;background-color:#33ADFF ;color:#ffffff;padding-top:5px;padding-bottom:5px;">Ongoing Events</div></div>
+  <ons-modal direction="up" id="view-notifications-load-screen">
+<div style="text-align: center">
+<p>
+<ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+</p>
+</div>
+</ons-modal>
+
+<div id="infoN"></div>
+ <script>
+   
+ $(document).ready(function() {
+   document.getElementById('menu').setAttribute("swipeable","true");
+showModal();
+    $.ajax({
+        type: "get",
+         url: "http://projects.techsilium.com/sc/recent_event.php",
+          data: "",
+          success: function(data) {
+                           //   alert(data);
+            $("#infoN").html(data);
+            hideModal();
+ },
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+});
+});
+               
+ $(document).ready(function() {
+                showModal();
+      $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/recent_noti.php",
+                              data: {user_type:localStorage.userLoggedInType,parentemail:localStorage.parentemail,studentemail:localStorage.student_email,studentbatch:localStorage.batch,studentcourse:localStorage.course_name,facultyemail:localStorage.faculty_email, alumniemail:localStorage.alumni_email},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#recentnoti").html(data);
+                          hideModal();
+},
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                          }
+
+ });
+ });
+                </script>
+ </ons-page>
+  </template>
+
+
+ <template id="addnotification.html">
+    <ons-page>
+       <ons-toolbar><ons-toolbar-button  class="left" >
+          <ons-icon icon="fa-arrow-left" onclick="fn.load('all_notifications.html')"" ></ons-icon></ons-toolbar-button>
+      <div class="center">AddNotification</div>
+ <div class="right">
+<ons-toolbar-button>  <ons-icon icon="fa-step-forward"  ></ons-icon></ons-toolbar-button></div>
+      </ons-toolbar>
+       <div style="text-align: center; background-color=#ffffff;width:100%;height:100%px;background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 1800px 10px;">
+      <input id="not_title" class="w3-input" placeholder="Notification Title" type="text"><br/>
+            <input id="not_body" class="w3-input"  placeholder="Notifications details"  type="textarea" rows="5" cols="8"><br/>
+            <input id="student_email" class="w3-input" placeholder="Enter Student email"  type="text"><br/>
+            <input id="parent_email" class="w3-input"  placeholder="Enter Parent email"  type="textarea"><br/>
+            <div style="text-align:center;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">Select the batches you want to send a notification to</div><br/>
+  <select id="batch"  style="text-align:center;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px" multiple>
+     </select>
+<br/><br/>
+   <div style="text-align:center;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">Add Attachments</div>
+      <br />
+     
+      <input type="file" name="fileToUpload" id="fileToUpload"><ons-button id="openBrowser" style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;">Upload File</ons-button><br/> <br><br>
+      <div style="text-align:center;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">Select usertype you want to send notification to</div>
+      <br />
+      <select id="noti_usertype" style="text-align:center;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px" multiple>
+     <option value="Student">Student</option>
+    <option value="Parent">Parent</option>
+     </select><br/><br/>  <div style="text-align:center;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">Notification Valid Till date</div>
+      <br />
+     <input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="date" id="noti_valid" required></input>
+     <br/><br/>
+     <ons-button id="add_noti" onclick="addnotification()" style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;"  >Add</ons-button>  &nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;   &nbsp;&nbsp;  <ons-button  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;">Cancel</ons-button>
+<script>
+  document.getElementById("openBrowser").addEventListener("click", openBrowser);  
+$(function () {
+       $('#batch').html('<option value="">Loading...</option>');
+         $.ajax({
+            url: "http://projects.techsilium.com/sc/dropdown.php",
+            
+            data: { course: localStorage.faculty_course},
+            success: function (data) {
+            // alert(data);
+               $('#batch').html(data);
+            }
+          });
+
+        });
+ var noti_usertype="";
+  var batch="";
+        function addnotification()
+        {
+           var x=document.getElementById("batch");
+           var batch="";
+ for (var i = 0; i < x.selectedOptions.length; i++) {
+   batch += x.selectedOptions[i].value+ ",";}
+   var y=document.getElementById("noti_usertype");
+          
+ for (var i = 0; i < y.selectedOptions.length; i++) {
+   noti_usertype += y.selectedOptions[i].value+ ",";
+   }
+    var noti_usertype="";
+ /* var batch="";
+       
+        function addnotification()
+        {
+           var x=document.getElementById("batch");
+           var batch="";
+ for (var i = 0; i < x.selectedOptions.length; i++) {
+   batch += x.selectedOptions[i].value+ ",";}
+   var y=document.getElementById("noti_usertype");
+          
+ for (var i = 0; i < y.selectedOptions.length; i++) {
+   noti_usertype += y.selectedOptions[i].value+ ",";
+   }*/
+    $(function () {
+        $('#add_noti').click(function () {
+          var file=$('#fileToUpload').val();
+           var fields = file.split("\\");
+           var filename="http://projects.techsilium.com/uploads/"+fields[2];
+          var not_title = $('#not_title').val();
+          var not_body= $('#not_body').val();
+          var student_email = $('#student_email').val();
+            var parent_email = $('#parent_email').val();
+          var course=localStorage.faculty_course;
+          var noti_valid = $('#noti_valid ').val();
+         
+          $.ajax({
+            url:"http://projects.techsilium.com/sc/add.php",
+          data: { not_title: not_title, not_body: not_body, student_email : student_email ,parent_email :parent_email ,filename:filename,batch:batch,noti_usertype:noti_usertype,course:course,faculty_name:localStorage.username,noti_valid:noti_valid},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+            //  alert(dataParsed);
+              if(dataParsed.status==="inserted")
+              {
+                ons.notification.alert("Added");
+              }
+              else{
+                ons.notification.alert("Failed");
+              }
+              document.querySelector('#myNavigator').popPage();
+            }
+          });
+
+        });
+      });
+      
+  }
+    function openBrowser() {
+   var url = 'https://projects.techsilium.com/fp.html';
+   var target = '_blank';
+   var options = "location = yes"
+   var ref = cordova.InAppBrowser.open(url, target, options);
+   
+   ref.addEventListener('loadstart', loadstartCallback);
+   ref.addEventListener('loadstop', loadstopCallback);
+   ref.addEventListener('loaderror', loaderrorCallback);
+   ref.addEventListener('exit', exitCallback);
+
+   function loadstartCallback(event) {
+      console.log('Loading started: '  + event.url)
+   }
+
+   function loadstopCallback(event) {
+      console.log('Loading finished: ' + event.url)
+   }
+
+   function loaderrorCallback(error) {
+      console.log('Loading error: ' + error.message)
+   }
+
+   function exitCallback() {
+      console.log('Browser is closed...')
+   }
+}
+     </script>
+ </ons-page></template>
+
+
+
+
+  <template id="notifications.html">
+    <ons-page>
+      
+       <ons-toolbar>
+       <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Notifications
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+       
+      
+<ons-modal direction="up" id="view-notifications-load-screen">
+<div style="text-align: center">
+<p>
+<ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+</p>
+</div>
+</ons-modal>
+<div id="infoN"></div>
+            <script>
+ $(document).ready(function() {
+showModal();
+  // alert(localStorage.userLoggedInType);
+  // alert(localStorage.parentemail);
+  // alert(localStorage.batch);
+  // alert(localStorage.course_name);
+            // alert(localStorage.student_email);                
+   // alert(localStorage.userLoggedInType);   
+                        $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/noti.php",
+                 data: {user_type:localStorage.userLoggedInType,parentemail:localStorage.parentemail,studentemail:localStorage.student_email,studentbatch:localStorage.batch,studentcourse:localStorage.course_name,facultyemail:localStorage.faculty_email, alumniemail:localStorage.alumni_email},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                          hideModal();
+                               
+                                  },
+                            error: function(request, status, error) {
+ ons.notification.alert("We are facing some connectivity issues at the moment. Please check your  internet connection and try again later.");
+                           } });
+                });
+
+function notify(id)
+ {
+   
+  $.ajax({
+    
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/noti_details.php",
+                            data: { n_id:id },
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+          var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+              },
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                         }});
+ }
+</script>
+    </ons-page>
+     </template>
+
+
+
+  
+
+   
+   
+   <template id="Achievements.html">
+    <ons-page>
+      
+        <ons-toolbar>
+     <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          ACHIEVEMENTS
+        </div>
+<div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+ </ons-toolbar>
+ 
+  <ons-tabbar swipeable position="down">
+    <ons-tab page="Co-Curricular.html" label="Co-Curricular" icon="book" badge="7" active>
+    </ons-tab>
+    <ons-tab page="Extra-Curricular.html" label="Extra-Curricular" icon="book" onclick="extraCurricular()"></ons-tab>
+    </ons-tab>  <ons-tab page="Sports.html" label="Sports" icon="fa-basketball-ball" onclick="sports()">
+    </ons-tab>
+  </ons-tabbar></ons-page>
+  </template>
+
+<template id="Co-Curricular.html">
+  <ons-page id="Tab1">
+      <ons-page id="first-page">
+    
+   
+             <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        </div>
+             <script>
+             $(document).ready(function() {
+                showModal();
+                   $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_achievements.php",
+                           data: {achievement_type:"co-curricular"},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                            hideModal();
+                            },
+                            error: function(request, status, error) {
+                              ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+                            });
+                            });
+
+function achievement(id)
+ {
+  $.ajax({
+     type: "get",
+      url: "http://projects.techsilium.com/sc/opportunity_details.php",
+        data: { o_id:id },
+       success: function(data) {
+                           //   alert(data);
+       $("#infoN").html(data);
+      var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+       },
+            error: function(request, status, error) {
+ ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+});
+ }
+</script>  
+</ons-page>
+<ons-popover direction="down" id="popover" style="width:100px;margin-left:20%" cancelable cover-target >
+ <ons-list >
+      <ons-list-item> <div class="left">
+        <ons-icon icon="md-bookmark" class="list-item__icon"></ons-icon>
+      </div>
+      <div class="center">
+    Bookmark
+      </div>
+      </ons-list-item>
+      <ons-list-item>
+         <div class="left">
+        <ons-icon icon="md-share" class="list-item__icon"></ons-icon>
+      </div>
+      <div class="center">
+        Share
+      </div>
+      </ons-list-item>
+    </ons-list>
+ </ons-popover>
+</template>
+
+
+
+<template id="Extra-Curricular.html">
+  <ons-page id="Tab2">
+    <div id="extra"></div>
+  </ons-page>
+</template>
+
+
+<template id="Sports.html">
+  <ons-page id="Tab3">
+   <div id="sports"
+       </div>
+          </ons-page>
+<ons-popover direction="down" id="popover3" style="width:100px;margin-left:20%" cancelable cover-target >
+  <ons-list >
+      <ons-list-item> <div class="left">
+        <ons-icon icon="md-bookmark" class="list-item__icon"></ons-icon>
+      </div>
+      <div class="center">
+    Bookmark
+      </div>
+      </ons-list-item>
+      <ons-list-item>
+         <div class="left">
+        <ons-icon icon="md-share" class="list-item__icon"></ons-icon>
+      </div>
+      <div class="center">
+        Share
+      </div>
+      </ons-list-item>
+    </ons-list>
+ </ons-popover>
+</template>
+    
+  
+  
+   <template id="Query.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Query
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+  <ons-modal direction="up" id="view-notifications-load-screen">
+<div style="text-align: center">
+<p>
+<ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+</p>
+</div>
+</ons-modal>
+<div id="infoN"></div>
+ <script>
+ $(document).ready(function() {
+showModal();
+    $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_query.php",
+                            data: {id:localStorage.student_prn},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                      hideModal();
+                    },
+   error: function(request, status, error) {
+ ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                          }
+                          });
+                });
+                </script>
+                  
+    <ons-fab position="bottom right" direction="bottom right" onclick="fn.load('addquery.html')" >
+      <ons-icon icon="fa-plus"></ons-icon>
+    </ons-fab>
+   </ons-page></template>
+
+
+
+  <template id="addquery.html">
+    <ons-page>
+       <ons-toolbar><ons-back-button>Back</ons-back-button>
+      <div class="center">AddQuery</div>
+      </ons-toolbar>
+       <div class="well" style="text-align: center; background-color=#ffffff;width:100%;height:100%px;background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 1800px 10px;">
+        <textarea  id="querydetail" class="form-control" placeholder="Enter query details" rows="20" cols="5" ></textarea>
+   <br />
+ <ons-button  id="addQuery"onclick="addQuery()"  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;"  >Add Query</ons-button>&nbsp;&nbsp;<ons-button  id="addQuery"onclick="fn.load('Query.html')"  style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;"  >Cancel</ons-button>
+  </div>
+       <script>
+function addQuery()
+{
+var querydetail=$('#querydetail').val();
+
+    
+                        $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/addquery.php",
+                            data: {querydetail:querydetail,id:localStorage.student_prn},
+                            success: function(data) {
+                          
+                                 var dataParsed = JSON.parse(data);
+    //          alert(dataParsed);
+              if(dataParsed.status==="inserted")
+              {
+                ons.notification.alert("Added");
+              }
+              else{
+               ons.notification.alert("Failed");
+              }
+              document.querySelector('#myNavigator').popPage();
+                            },
+                            error: function(request, status, error) {
+                        ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+});
+}
+                </script></ons-page></template>
+
+
+
+<template id="otherdetails.html">
+<ons-page class="otherdetails">
+            <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         MyProfile
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar> 
+<div id="infoN">
+</div>
+<script>
+      $(document).ready(function() {
+             $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_alumni_profile.php",
+                            data: {id:localStorage.alumni_id},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                               },
+                            error: function(request, status, error) {
+                              ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            
+                                          }
+                      });
+ });
+</script></ons-page></template>
+
+
+        <template id="profileend.html">
+        <ons-page class="end">
+            <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         MyProfile
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar><div background-color="#388e9e"> 
+<div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 70px 10px;margin-left:10px;margin-right:10px;margin-top:120px;box-shadow:3px 3px 3px 3px grey;">
+  <center><img src="correct.png" height="50px" width="50px" >
+  <h3>ThankYou, for filling <br> your profile.</h3><br>
+<ons-button style="background-color:#33ADFF;width:80%;" onclick="fn.load('MyBatch.html')">SEE YOUR BATCHMATES</ons-button><br>
+  <br>
+  <ons-button style="background-color:#33ADFF;width:80%; " onclick="fn.load('profile.html')">GO TO YOUR PROFILE</ons-button></center>
+</div></div>
+        </ons-page></template>
+
+
+
+        <template id="profile.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         My Profile
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('Achivements.html');"></ons-toolbar-button></div>
+      </ons-toolbar>
+  <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div style='background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 70px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;'>
+            <div id="infoN">
+        
+            </div>
+            <center> <ons-button  style="background-color:#33ADFF;width:50%;"onclick="fn.load('otherdetails.html')" >Update Information</ons-button></center></div>
+      <script>
+           $(document).ready(function() {
+                  showModal();
+                         $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/profile.php",
+                            data: {id:localStorage.alumni_id},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                         hideModal(); },
+                            error: function(request, status, error) {
+                       ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            
+}
+});
+ });
+</script></ons-page></template>
+
+
+
+   <template id="Alumni.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Alumni
+        </div><div class="right">
+
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+   
+    
+  <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN"></div>
+      <script>
+        $(document).ready(function() {
+                   showModal();
+                 $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_opportunities.php",
+                            data: "mobile=" + "9819316186",
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                      hideModal();
+                      },
+                            error: function(request, status, error) {
+              ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+                           });
+ });
+
+function opportunity(id)
+ {
+   
+  $.ajax({
+                 type: "get",
+                            url: "http://projects.techsilium.com/sc/opportunity_details.php",
+                            data: { o_id:id },
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                                var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+              },
+                            error: function(request, status, error) {
+            ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                          }
+});
+ }
+ </script>
+   <ons-modal  direction="up" id="dm">
+  <div style="text-align: center">
+     <div class="messagemodal" style="background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 80px 10px;margin-left:10px;margin-right:10px;margin-top:10px;" >  <div style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;"> Send Message</div> 
+        <br />
+        <input class="form-control"  placeholder="To" name="To" type="text"><br/>
+         
+            <textarea class="form-control" placeholder="Message" rows="5" cols="5" ></textarea><br />
+            &nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;<ons-button style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;" onclick="hidedm()">Cancel</ons-button>&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;
+            <ons-button style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;">Send</ons-button></div>
+  </div>
+</ons-modal> 
+    </ons-page> 
+  </template>
+
+
+
+  <template id="messages.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Messages
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+      <div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 25px 10px;">
+   
+      <img style='height: 50px; width: 50px; margin-right: 4px;float: left;border-radius:40px;' src='person.jpg'/>&nbsp;&nbsp;<h4 style="float: left;font-size:15px;padding:0px;line-height:.75em;font-weight:bold;" class='Name'>&nbsp;Arshee</h4>
+      <h4 style="float:left;margin-left:150px;font-size:15px;padding:0px;line-height:.75em;font-weight:50;color:#979899" id="date"> 21&nbsp;Aug</h4><br>
+          <h4 style="font-size:15px;color:#979899";padding:0px;line-height:.75em;font-weight:50;" id=" message">&nbsp;Hi...</h4>
+ 
+  </div>
+      </ons-page>
+  </template>
+  </template>
+
+
+
+  <template id="MeetUp.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         MeetUp
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+      <ons-tabbar position="top">
+      <ons-tab label="Meetups" page="m_tab1.html"  style="background-color:#33adff;" active> 
+      </ons-tab>
+      <ons-tab label="Added by me" page="m_tab2.html" style="background-color:#33adff;" onclick="meetup()">
+      </ons-tab> 
+    </ons-tabbar>
+  
+  <template id="m_tab1.html">
+    <ons-page id="first-page">
+    
+<ons-fab position="bottom right" direction="up" onclick="fn.load('addmeetup.html')" >
+
+      <ons-icon icon="fa-plus"></ons-icon>
+    </ons-fab>
+      <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        </div>
+             <script>
+           $(document).ready(function() {
+//alert(localStorage.alumni_batch);
+  showModal();
+    $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/meetup.php",
+                            data: {batch:localStorage.alumni_batch},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                        hideModal();
+                                },
+                            error: function(request, status, error) {
+                        ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+
+});
+});
+ </script>  </ons-page>  </template>
+   
+   
+   <ons-template id="m_tab2.html">
+    <ons-page id="second-page">
+       <div id="my_meetup"></div>
+        </ons-page>
+ </ons-template>
+</ons-page></ons-template>
+  </template>
+
+
+  <template id="addmeetup.html">
+    <ons-page>
+       <ons-toolbar><ons-toolbar-button  class="left" >
+          <ons-icon icon="fa-arrow-left" onclick="fn.load('MeetUp.html')">
+            </ons-icon></ons-toolbar-button>
+      <div class="center">AddMeetUp</div>
+
+     <div class="right">
+<ons-toolbar-button>  <ons-icon icon="fa-step-forward"  ></ons-icon></ons-toolbar-button></div>
+      </ons-toolbar>
+       <div style=" background-color:#ffffff;width:100%;height:100%px;background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 180px 10px;">
+   <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Date:&nbsp;&nbsp;</div>
+ <input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="date" id="meetup_date" required></input><br><br>
+ <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Venue:&nbsp;&nbsp;</div>
+ <input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="location" id="meetup_venue" required></input><br><br>
+ <div style="font-size:15px;color:#808080;font-weight:90;">&nbsp;&nbsp;Time:&nbsp;&nbsp;</div>
+ <input style="background-color:transparent;margin-left:10px;color: black;outline: none;outline-style: none;border-top: none;border-left: none;border-right: none;border-bottom: solid #9E9292 1px;padding: 10px 10px;width:90%;font-size:20px;" type="time" id="meetup_time" required></input><br><br>
+ <ons-button id="add">Save</ons-button>
+            <script>
+      $(function () {
+        $('#add').click(function () {
+          var m_date = $('#meetup_date').val();
+          var m_venue= $('#meetup_venue').val();
+          var m_time = $('#meetup_time').val();
+          
+          $.ajax({
+            url: "http://projects.techsilium.com/sc/addmeetup.php",
+            
+            data: { meetup_date: m_date, meetup_venue: m_venue, meetup_time: m_time,batch:localStorage.alumni_batch,alumni_id:localStorage.alumni_id},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+  //            alert(dataParsed);
+              if(dataParsed.status==="inserted")
+              {
+                ons.notification.alert("Added");
+              }
+              else{
+                ons.notification.alert("Failed");
+              }
+              document.querySelector('#myNavigator').popPage();
+            }
+          });
+
+        });
+      });
+
+    </script>
+</ons-page></template>
+ 
+
+
+   <template id="addopportunity.html">
+    <ons-page>
+    <ons-toolbar><ons-toolbar-button  class="left" >
+    <ons-icon icon="fa-arrow-left" onclick="fn.load('opportunity.html')" ></ons-icon></ons-toolbar-button>
+    <div class="center">AddOpportunity</div><div class="right"><ons-toolbar-button>  <ons-icon icon="fa-step-forward"></ons-icon></ons-toolbar-button></div></ons-toolbar>
+    <div style=" background-color=#ffffff;width:100%;height:100%px;background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 180px 10px;">
+     <div style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">Post a:</div>
+     <ons-list>
+     <ons-list-item tappable>
+      <label class="left">
+        <input type="radio" id="job" name="post"  value="job" >
+      </label>
+      <label for="radio-1" class="center"  style="font-size:15px;">
+       Job
+      </label>
+    </ons-list-item>
+    <ons-list-item tappable>
+      <label class="left">
+        <input type="radio" id="internship" name="post" value="internship"   >
+       </label>
+      <label for="radio-2" class="center" style="font-size:15px;">
+        Internship
+      </label>
+    </ons-list-item>
+  </ons-list>
+      <br />
+       <input id="company" placeholder="Name of the company "  type="text" class="inputStyle"><br/>
+       <input class="inputStyle" placeholder="Job Title" id="job_title" type="text"><br/><br />
+         <div style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;"> Deadline To Apply:</div>
+   <input id="deadline" placeholder="Deadline To apply" type="date" class="inputStyle"><br/><br/>
+            <input class="inputStyle" placeholder="Enter Location" id="location" type="text"><br/>
+            <input class="inputStyle" placeholder="Enter Salary" id="salary" type="text"><br/>
+            <input class="inputStyle" placeholder="Enter Contact No." id="contact" type="number"><br/>
+            
+            <textarea id="details" class="inputStyle" placeholder="Enter Company Details" rows="7" cols="40"></textarea>
+      <br><br><center><ons-button id="add" style="background-color: #33ADFF;width:60%;padding:5px;font-size:15px;" onclick=" addopportunity()">Add Opportunity</ons-button></center>
+             <script>
+     function addopportunity() 
+    {
+      var post;
+          if (document.getElementById('job').checked) {
+  post= document.getElementById('job').value;
+}
+else if (document.getElementById('internship').checked) {
+ post= document.getElementById('internship').value;
+}
+//alert(post);
+          var company=$('#company').val();
+          var job_title=$('#job_title').val();
+           var deadline=$('#deadline').val();
+            var location=$('#location').val();
+            var salary=$('#salary').val();
+            var contact=$('#contact').val();
+            var details=$('#details').val();
+    //        alert(details);
+         $.ajax({
+            url: "http://projects.techsilium.com/sc/addopportunity.php",
+            
+            data: { post:post,company:company,job_title:job_title,deadline:deadline,location:location,salary:salary,contact:contact,details:details,alumni_id:localStorage.alumni_id},
+            success: function (data) {
+              var dataParsed = JSON.parse(data);
+             // alert(dataParsed);
+              if(dataParsed.status==="inserted")
+              {
+                ons.notification.alert("Added");
+              }
+              else{
+                ons.notification.alert("Failed");
+              }
+              document.querySelector('#myNavigator').popPage();
+            }
+          });
+
+    }
+
+    </script>
+      </ons-page></template>
+
+
+
+      <template id="MyBatch.html">
+        <ons-page>
+        <ons-toolbar>
+       <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+       MyBatch
+        </div><div class="right"><ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div></ons-toolbar>
+
+ <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        
+            </div>
+             <script>
+            
+           $(document).ready(function() {
+//alert(localStorage.alumni_batch);
+  
+    showModal();
+     $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/batchmates.php",
+                            data: {batch:localStorage.alumni_batch},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                              hideModal();
+                         },
+                            error: function(request, status, error) {
+                      ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+
+                       });
+});
+               
+                function batch(id)
+                {
+                  
+                        $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/alumnidetails.php",
+                            data: {id:id},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+
+},
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+});
+}
+            </script>  </ons-page></template>
+
+
+ <template id="opportunity.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Opportunities
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+      <ons-tabbar position="top">
+      <ons-tab label="Opportunities" page="o_tab1.html"  style="background-color:#33adff;" active> 
+      </ons-tab>
+      <ons-tab label="Added by me" page="o_tab2.html" style="background-color:#33adff;" onclick="only_my_opportunity()">
+      </ons-tab> 
+    </ons-tabbar>
+  
+  <template id="o_tab1.html">
+    <ons-page id="first-page">
+      <ons-fab position="bottom right" direction="bottom right" onclick="fn.load('addopportunity.html')" >
+      <ons-icon icon="fa-plus"></ons-icon>
+    </ons-fab>  <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        
+            </div>
+      <script>
+          $(document).ready(function() {
+              showModal();
+                               $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_opportunities.php",
+                            data: "mobile=" + "9819316186",
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                hideModal();
+                           },
+                            error: function(request, status, error) {
+                  ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+
+
+                        });
+ });
+
+function opportunity(id)
+ {
+   
+  $.ajax({
+    
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/opportunity_details.php",
+                            data: { o_id:id },
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+
+      var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+            },
+                            error: function(request, status, error) {
+ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+               }
+});
+ }
+</script>
+            <ons-modal  direction="up" id="dm">
+  <div style="text-align: center">
+     <div class="messagemodal" style="background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 80px 10px;margin-left:10px;margin-right:10px;margin-top:10px;" >  <div style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;"> Send Message</div> 
+        <br />
+        <input class="form-control"  placeholder="To" name="To" type="text"><br/>
+         
+            <textarea class="form-control" placeholder="Message" rows="5" cols="5" ></textarea><br />
+            &nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;<ons-button style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;" onclick="hidedm()">Cancel</ons-button>&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;
+            <ons-button style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;">Send</ons-button></div>
+  </div>
+</ons-modal> 
+      </ons-page></template>
+
+
+    <template id="o_tab2.html"><ons-page id="second-page">
+       <div id="myOpportunity">
+        
+            </div>
+      </ons-page></template></ons-page></template>
+  <template id="opportunitydetails.html">
+    <ons-page>
+       <ons-page>
+        <ons-toolbar>
+       <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Alumni
+        </div><div class="right">
+
+<ons-toolbar-button icon="fa-envelope" onclick="showModal();"  ></ons-toolbar-button>
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+   
+    <br>
+  <div style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;"> Description</div>
+  <div style="background-color:#ffffff;padding:15px 10px 500px 20px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;"> <p id="description" style="color:grey;font-size:20px;padding:0px;margin-left:10px;">A job description is an internal document that clearly states the essential job requirements, job duties, job responsibilities, and skills required to perform a specific role. A more detailed job description will cover how success is measured in the role so it can be used during performance evaluations.
+
+They are also known as a job specification, job profiles, JD, and position description (job PD).
+
+Our job description directory contains job description examples covering all the most popular roles. We have examples of job descriptions you can quickly download and modify to suit your unique business requirements. You'll find a job description example for most common jobs.</p>
+  <hr />
+  <ons-icon  icon="fa-share-alt" size="25px" style="float:left;color:#33ADFF;"></ons-icon>&nbsp;&nbsp;<p style="float:left;color:black;font-size:20px;padding:0px;margin-left:10px;color:#33ADFF;">Share</p><br />
+  <br/>
+  <br />
+  <p  style="color:grey;font-size:20px;padding:0px;">
+    Let your friends and batchmates know about this</p><br />
+   <ul class="social-icons">
+    <li><a href="http://www.facebook.com"><img src='facebook.jpg' /></a></li>
+    <li><a href="http://www.whatsapp.com"><img src='whatsapp.png' /></a></li>
+ <li><a href="http://www.whatsapp.com"><img src='share.png' style="border-radius:200px;" /></a></li></ul>
+ <br />
+ <hr />
+
+<ons-icon  icon="fa-envelope" size="25px" style="float:left;color:#33ADFF;" ></ons-icon>&nbsp;&nbsp;<p style="float:left;color:black;font-size:20px;padding:0px;margin-left:10px;color:#33ADFF;">Contact</p><br />
+<br />
+  <p style="color:grey;font-size:20px;padding:0px;">
+   Want to get in touch send a direct message</p><br />
+   <ons-button onclick="showModal()">Direct Message</ons-button>
+  
+   <hr/>
+   <p style="float:left;color:black;font-size:20px;padding:0px;margin-left:10px;color:#33ADFF;">Links to apply</p>
+</div>
+ </ons-page></template>
+
+
+
+    <template id="dm.html">
+      <ons-page>
+        <div class="messagemodal" style="background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 80px 10px;margin-left:10px;margin-right:10px;margin-top:10px;" >  <div style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;"> Send Message<a href="#" class="btn-close closemodale" aria-hidden="true">&times;</a></div> 
+        <br />
+        <input class="form-control"  placeholder="To" name="To" type="text"><br/>
+         
+            <textarea class="form-control" placeholder="Message" rows="5" cols="5" ></textarea><br />
+            &nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;<ons-button style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;">Cancel</ons-button>&nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;&nbsp;
+            &nbsp;
+            <ons-button style="background-color: #33ADFF;width:30%;padding:5px;font-size:15px;">Send</ons-button></div>
+      </ons-page>
+        </template>
+        
+   <template id="Fees.html">
+    <ons-page>
+      <ons-toolbar>
+ <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+        Fees
+        </div><div class="right">
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+    <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        
+            </div>
+        <script> 
+         function payment(amount)
+        {
+          localStorage.amount=amount;
+ fn.load('pay_fee.html');
+}
+</script>
+             <script>
+              $(document).ready(function() {
+showModal();
+  // alert(localStorage.userLoggedInType);  
+  //  alert(localStorage.parentid);
+  //  alert(localStorage.student_prn);
+                        $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_fees.php",
+                            data: {user_type:localStorage.userLoggedInType,parentid:localStorage.parentid,studentprn:localStorage.student_prn},
+                            success: function(data) {
+                           //   alert(data);
+                           
+                                $("#infoN").html(data);
+                    hideModal();
+                           },
+                            error: function(request, status, error) {
+                  ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                          }
+
+});
+});
+            </script> 
+</ons-page>
+  </template>
+
+
+   <template id="pay_fee.html">
+    <ons-page>
+      <br><br><center> <button id="home" style="background-color: #33ADFF;width:60%;padding:5px;font-size:15px;" onclick="fn.load('Fees.html')">Home</button></center> <br><br> <br><br>
+     <center> <h1>Proceed to Pay</h1>
+ <br><br> <br><br>
+   <button id="rzp-button1" style="background-color: #33ADFF;width:60%;padding:5px;font-size:15px;">Pay</button></center>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+	var amount= localStorage.amount+"00";
+var options = {
+    "key": "rzp_test_ropZhIy62foyDu",
+    "amount": amount, // 2000 paise = INR 20
+    "name": "Merchant Name",
+    "description": "Purchase Description",
+    "image": "/your_logo.png",
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+    },
+    "prefill": {
+        "name": "Gaurav Kumar",
+        "email": "test@test.com"
+    },
+    "notes": {
+        "address": "Hello World"
+    },
+    "theme": {
+        "color": "#F37254"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+      </ons-page></template>
+
+
+
+   <template id="Introduction.html">
+    <ons-page>
+      <script>
+      //  alert(localStorage.userFound);
+         if(localStorage.userFound !='Y')
+        {
+     document.getElementById('menu').removeAttribute("swipeable");
+    document.getElementById("hide1").style.display = "none";
+     document.getElementById("hide2").style.display = "none";
+      
+      
+        }
+         if(localStorage.userFound=='Y')
+        {
+      
+     document.getElementById("hide3").style.display = "none";
+        }
+ </script>
+      <ons-toolbar>
+        <div class="left" >
+          <ons-toolbar-button id="hide1" onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+          <ons-toolbar-button id="hide3">
+            <ons-icon icon="fa-arrow-left" onclick="fn.load('mainhome.html')">
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+        Introduction
+        </div><div class="right">
+<ons-toolbar-button id="hide2" icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+     
+      <div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 70px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;">
+     <p  style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">Welcome to Ramnarain Ruia Autonomous College</p>
+     <p style="font-size:17px;color:#33ADFF;">
+       The Ramnarain Ruia College was recently conferred with an Autonomous status in the month of July 2017 by the University of Mumbai and University Grants Commission. Ramnarain Ruia College is one of the Best Colleges in Mumbai, established in June 1937 by the Shikshana Prasaraka Mandali, Pune. It was the first educational institution in Mumbai run by a private management educational body. The college was declared open formally by H.E. Sir Roger Lumley, the then Governor of Bombay, on 3rd December 1937. A large amount of the credit of the establishment of this institution goes to Mataji Suvratadevi Ruia and her illustrious son, Seth Ramnivas Ramnarain Ruia, who extended a handsome donation of Rs.2,00,000 from the Ramnarain Harnandrai Charitable Trust.
+
+In recognition of this gesture, the S. P. Mandali named the institution - RAMNARAIN RUIA COLLEGE. Ramnarian Ruia College of Arts & Science is a premier educational institution in the country which has been contributing to human progress by moulding brilliant, creative, committed and caring students who are making their alma mater proud in various walks of life in different corners of the world.
+  <div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 15px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;color: #33ADFF;text-align:center;">
+ <p style="font-size:20px;">FOR MORE INFORMATION:</p><a href="https://www.ruiacollege.edu/" style="background-color:  #33ADFF;; color: white;padding: 14px 25px;text-align: center;text-decoration: none;display: inline-block;">CLICK HERE</a></div>
+     </p></div>
+    </ons-page>  
+    </ons-page>
+  </template>
+
+
+  <template id="Courses.html">
+    <ons-page>
+      <script>
+        if(localStorage.userFound !='Y')
+        {
+     document.getElementById('menu').removeAttribute("swipeable");
+    document.getElementById("hide1").style.display = "none";
+     document.getElementById("hide2").style.display = "none";
+    
+      
+        }
+         if(localStorage.userFound=='Y')
+        {
+       
+     document.getElementById("hide3").style.display = "none";
+        }
+ </script>
+      <ons-toolbar>
+        <div class="left" >
+          <ons-toolbar-button id="hide1" onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+          <ons-toolbar-button id="hide3">
+            <ons-icon icon="fa-arrow-left" onclick="fn.load('mainhome.html')">
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Courses
+        </div><div class="right">
+<ons-toolbar-button id="hide2" icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+     
+<div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 15px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;color: #33ADFF;">
+  The following departments offer UG Programmes
+<p style="font-weight: bold;font-size:17px;">Aided</p>
+1.Botany<br />
+2.Chemistry<br />
+3.Life Science<br />
+4.Mathematics<br />
+5.Microbiology<br />
+6.Physics<br />
+7.Statistics<br />
+8.Zoology<br />
+
+<p style="font-weight: bold;font-size:17px;">Aided</p>
+9.Biochemistry<br />
+10.Biotechnology<br />
+11.Computer Science<br />
+
+<p style="font-weight: bold;font-size:17px;">Details of Courses:</p>
+11.Foundation Course -<br />
+<ul><li>Paper I (To be studied in the First Year)</li>
+<li>Paper II (To be studied in the Second Year)</li></ul><br />
+12.Applied Components: (Two courses in the third year) -<br />
+<ul><li>In the first year, students will have to take two courses each of the three subjects selected by him/her.</li>
+<li>In the second year, a student will have to continue with three courses each of the two subjects selected by him/her.</li>
+<li>In the third year, a student will have to take six courses in one subject.</li></ul><br /><br />
+<br />
+<p style="font-weight: bold;font-size:17px;">NOTE: Biotechnology and Computer Science are fully independent courses with no other subject combinations.</p>
+
+
+<p style="font-weight: bold;font-size:17px;">Combinations offered at F.Y. B.Sc.</p>
+Students will have to choose any one of the following combinations:
+<table id="combinations" >
+<tr><th>Combination</th><th>	Code</th></tr>
+<tr>
+  <td>Chemistry, Physics, Mathematics</td><td>	CPM</td></tr>
+<tr>
+  <td>Chemistry, Botany, Biochemistry</td><td>	CBBC</td></tr>
+<tr>
+  <td>Chemistry, Botany, Life Science</td><td>CBLS</td></tr>
+<tr>
+  <td>Chemistry, Zoology, Life Science</td><td>	CZLS</td></tr>
+<tr>
+  <td>Chemistry, Life Science, Microbiology</td><td>	CLSMIC</td></tr>
+<tr>
+  <td>Chemistry, Botany, Microbiology</td><td>	CBMIC</td></tr>
+<tr>
+  <td>Physics, Mathematics, Statistics</td><td>	PMS</td></tr>
+<tr>
+  <td>Economics, Mathematics, Statistics</td><td>	EMS</td></tr></table>
+Combinations offered at S.Y. B.Sc.
+Students will have to choose any one of the following combinations:
+
+<table id="combinations"><tr><th>Combination</th><th>	Code</th></tr>
+<tr>
+  <td>Chemistry, Physics</td><td>	CP</td></tr>
+<tr>
+  <td>Chemistry, Microbiology</td><td>	CMIC</td></tr>
+<tr>
+  <td>Chemistry, Biochemistry</td><td>	CBC</td></tr>
+<tr>
+  <td>Chemistry, Botany	</td><td>CB</td></tr>
+<tr>
+  <td>Chemistry, Zoology</td><td>	CZ</td></tr>
+<tr>
+  <td>Chemistry, Life Science</td><td>	CLS</td></tr>
+<tr>
+  <td>Botany, Zoology</td><td>	BZ</td></tr>
+<tr>
+  <td>Physics, Mathematics</td><td>	PM</td></tr>
+<tr>
+  <td>Mathematics, Statistics</td><td>	MS</td></tr></table>
+
+<p style="font-weight: bold;font-size:17px;">Combinations offered at TYBSc</p>
+<ul><li>Students are required to note that they have to select only one subject from among the subjects that they have already studied in the second year.</li><li>
+The college will not be able to offer a subject or a particular combination if the number of students who offer it is less than the minimum number that has been prescribed for the conduct of the course in the subject.</li></ul>
+Applied components offered at the TYBSc level are as follows:
+<table id="combinations">
+<tr>
+  <th>Subjects</th><th>	Applied Component Papers</th></tr>
+<tr>
+  <td>Chemistry</td><td>	
+1. Dyes and Drugs or
+2. Non- Conventional Energy Sources & Waste Recycling</td></tr>
+<tr>
+  <td>Botany</td><td>	Horticulture</td></tr>
+<tr>
+  <td>Life Science</td><td>	Horticulture</td></tr>
+<tr>
+  <td>Zoology</td><td>	Marine Science</td></tr>
+<tr>
+  <td>Microbiology</td><td>	Biotechnology</td></tr>
+<tr>
+  <td>Mathematics	</td><td>Computer Science</td></tr>
+<tr>
+  <td>Statistics</td><td>	Operational Research</td></tr>
+<tr>
+  <td>Physics</td><td>	Electronic Instrumentation</td></tr>
+<tr>
+  <td>Biochemistry</td><td>	Biotechnology</td></tr>
+<tr>
+  <td>Computer Science</td><td>	
+1. .Net Technologies
+2.Advanced Web Technologies</td></tr>
+<tr>
+  <td>Biotechnology</td><td>	Horticulture</td></tr></table>
+  Undergraduate Courses Offered by Department
+<table id="combinations">
+<tr>
+  <th> Programme Name</th><th>	B.Sc. COMPUTER SCIENCE</th></tr>
+<tr>
+  <td>Degree/Diploma/Certificate</td><td>	Degree</td></tr>
+<tr>
+  <td>Aided/Self-Financed	</td><td>Self-Financed</td></tr>
+<tr>
+  <td>Year of Starting</td><td>	1999</td></tr>
+<tr>
+  <td>Intake Capacity</td><td>	48 students</td></tr>
+
+Post-Graduate Courses Offered by Department
+<table id="combinations">
+<tr>
+  <th> Programme Name</th><th>	M.Sc. COMPUTER SCIENCE</th>
+<tr>
+  <td>Degree/Diploma/Certificate</td><td>	Degree</td></tr>
+<tr>
+  <td>Aided/Self-Financed	</td><td>Self-Financed</td></tr>
+<tr>
+  <td>Year of Starting</td><td>	2002</td></tr>
+<tr>
+  <td>Intake Capacity</td><td>	40 students</td></tr></table>
+
+Post-Graduate Courses Offered by Department
+<table id="combinations">
+<tr>
+  <th> Programme Name</th><th>	M.Sc. INFORMATION TECHNOLOGY</th>
+<tr>
+  <td>Degree/Diploma/Certificate</td><td>	Degree</td></tr>
+<tr>
+  <td>Aided/Self-Financed</td><td>	Self-Financed</td></tr>
+<tr>
+  <td>Year of Starting	</td><td>2012</td></tr>
+<tr>
+  <td>Intake Capacity</td><td>	20 students</td></tr></table>
+  <br />
+  <div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 15px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;color: #33ADFF;text-align:center;">
+ <p style="font-size:20px;">FOR MORE INFORMATION:</p><a href="https://www.ruiacollege.edu/" style="background-color:  #33ADFF; color: white;padding: 14px 25px;text-align: center;text-decoration: none;display: inline-block;">CLICK HERE</a></div>
+    </ons-page>
+  </template>
+
+
+   <template id="faculty.html">
+    <ons-page>
+       <script>
+           if(localStorage.userFound !='Y')
+        {
+     document.getElementById('menu').removeAttribute("swipeable");
+    document.getElementById("hide1").style.display = "none";
+     document.getElementById("hide2").style.display = "none";
+     
+      
+        }
+         if(localStorage.userFound=='Y')
+        {
+       
+     document.getElementById("hide3").style.display = "none";
+        }
+ </script>
+      <ons-toolbar>
+        <div class="left" >
+          <ons-toolbar-button id="hide1" onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+          <ons-toolbar-button id="hide3">
+            <ons-icon icon="fa-arrow-left" onclick="fn.load('mainhome.html')">
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         Faculty
+        </div><div class="right">
+<ons-toolbar-button id="hide2" icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+      <div id="event" style="width:95%;height:100px;background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 15px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;" >
+      
+<div style="display:inline-block;float:left;">
+        <img src="person.jpg" style=" height:50px;width:50px; "/></div>
+        <div class="vl" style="margin-left:20px;float:left;display:inline-block;border-left: 2px solid #33ADFF;height: 70px;"></div>
+         <div style="margin-left:30px;float:left;display:inline-block;">
+        <h5>
+  <b>Ms. Megha Sawant</b>
+  <br />
+  <p>H.O.D. CS&IT <br />
+  M.Sc.CompSci, B.Sc.Stats</p></h5></div>
+     </div>
+     <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        
+            </div>
+             <script>
+            $(document).ready(function() {
+              showModal();
+              $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_faculty.php",
+                            data: "mobile=" + "9819316186",
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                            hideModal();
+                             },
+                            error: function(request, status, error) {
+                          ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                           }
+                    });
+                 });
+            </script>  
+    </ons-page>
+  </template>
+  
+   <template id="eligibility.html">
+    <ons-page>
+       <script>
+      //  alert(localStorage.userFound);
+         if(localStorage.userFound !='Y')
+        {
+     document.getElementById('menu').removeAttribute("swipeable");
+    document.getElementById("hide1").style.display = "none";
+     document.getElementById("hide2").style.display = "none";
+      
+      
+        }
+         if(localStorage.userFound=='Y')
+        {
+      
+     document.getElementById("hide3").style.display = "none";
+        }
+ </script>
+      <ons-toolbar>
+        <div class="left" >
+          <ons-toolbar-button id="hide1" onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+          <ons-toolbar-button id="hide3">
+            <ons-icon icon="fa-arrow-left" onclick="fn.load('mainhome.html')">
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+        Eligibilty Criteria
+        </div><div class="right">
+<ons-toolbar-button id="hide2" icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+       <div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 70px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;">
+     <p  style="text-align:center;font-size:20px;background-color: #33ADFF;color:#ffffff;padding-top:15px;padding-bottom:15px;">
+     Ramnarain Ruia College, Mumbai Admission 2018</p>
+     <div  style="font-size:17px;color: black;padding-top:15px;padding-bottom:15px;">
+Ramnarain Ruia College was founded in 1937 by Shikshana Prasaraka Mandali. It is affiliated to the University of Mumbai. The college offers 3 UG courses, viz. B.Sc, B.A and BMM in various specializations. RUIA Collegealso offers various M.Sc and Ph.D. courses at PG and Doctorate level.
+<ul><li>
+Selection to all the courses is done according to the regulations prescribed by Mumbai University.</li>
+<li>Candidates must have passed 10+2 to be eligible for admission to any undergraduate course.</li>
+<li>Postgraduate aspirants must have a Bachelor’s degree in the relevant discipline to secure admission in any Master’s degree course.</li>
+<li>For Ph.D., a Master’s degree or M.Phil is required for admission.</li>
+<li>Selection in BA, B.Sc and BMM is based on merit in the qualifying examination.</li>
+<li>Admission to M.Sc is also based on merit except for M.Sc in Bioanalytical Sciences.</li>
+<li>Ph.D. admission is done on the basis of the marks in Ph.D. Entrance Test (PET) followed by an interview.</li>
+<li>GATE / SET / NET / (JRF) qualified or teacher fellowship holders are exempted from PET.</li>
+<li>Applications for all the courses are invited in online mode only.</li></ul>
+RUIA College Admission Highlights</div>
+<table id="combinations"><tr><th>Name of the College</th><td>	Ramnarain Ruia College</td></tr>
+<tr><th>College Type</th><td>	Autonomous</td></tr>
+<tr><th>Basic Admission </th><td>Criteria	Merit and entrance based</td></tr>
+<tr><th>Application Mode</th><td>	Online</td></tr>
+<tr><th>Counselling	will</th><td> be governed by Mumbai University</td></tr>
+<tr><th>Scholarship	</th><td>Yes</td></tr>
+<tr><th>Reservation	</th><td>Yes</td></tr></table>
+</ons-page>
+  </template>
+
+
+
+ <template id="eventdescriptions.html">
+  <ons-page id="eventdesc">
+    
+ <ons-toolbar> <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+      <div class="center">Events</div>
+  <div class="right"><ons-toolbar-button icon="fa-share-alt"></ons-toolbar-button></div></ons-toolbar>
+    <div id="event" style="background-color:#ffffff;border: 1px solid #33adff;padding:15px 10px 80px 10px;margin-left:10px;margin-right:10px;margin-top:10px;" >
+  <img src="download.jpg" style="width:100%" alt="" />
+<div style="color:#ffffff;background-color:#33adff;text-align:center;padding:5px 30px 5px 30px; ">  <h3 >EVENT TITLE</h3></div>
+  <h5 style="color:#8bd1ef;">Event description<br /><img src="clock .png">&nbsp;Starts:SOME DATE TIME<br />&nbsp;&nbsp;&nbsp;
+      Ends: SOME DATE TIME<br />
+      <img src="locataion.jpg" height="20px" width="20px">&nbsp;&nbsp;Auditorium NewBuilding 5<sup>th</sup>Floor</h5>
+    
+      <video width="150" height="150" poster="/images/w3html5.gif" controls>
+   <source src="movie.mp4" type="video/mp4">
+   <source src="movie.ogg" type="video/ogg">
+   Your browser does not support the video tag.
+</video> <video width="150" height="150" poster="/images/w3html5.gif" controls>
+   <source src="movie.mp4" type="video/mp4">
+   <source src="movie.ogg" type="video/ogg">
+   Your browser does not support the video tag.
+</video>
+</h5>
+  </p>
+  </div>
+  </ons-page>
+</template> 
+
+
+ <template id="ruiaitemonthly.html">
+    <ons-page>
+       <script>
+     //   alert(localStorage.userFound);
+        if(localStorage.userFound !='Y')
+        {
+     document.getElementById('menu').removeAttribute("swipeable");
+    document.getElementById("hide1").style.display = "none";
+     document.getElementById("hide2").style.display = "none";
+      document.getElementById('menu').style.display = "none";
+      
+        }
+         if(localStorage.userFound=='Y')
+        {
+       
+     document.getElementById("hide3").style.display = "none";
+        }
+ </script>
+      <ons-toolbar>
+        <div class="left" >
+          <ons-toolbar-button id="hide1" onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+          <ons-toolbar-button id="hide3">
+            <ons-icon icon="fa-arrow-left" onclick="fn.load('mainhome.html')">
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+         RuiaiteMonthly
+        </div><div class="right">
+<ons-toolbar-button id="hide2" icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+   
+<div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:10px 5px 10px 5px;margin-left:5px;margin-right:5px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;color: #33ADFF;text-align:center;">
+      Follow Us on:
+   <ul class="social-icons">
+    <li><a href="https://www.facebook.com/Ruiaite/?__xts__[0]=68.ARBJaN34f2BrorCAuCqtNzCK-VozfwR5LFDsTQtCpCbvXUTkc_R-42xxJ0HPjJURbeY3L2P8qzuzQywistiODdi1kUKqifvKh2ZilFERvJVUD9LT1m1Df8A-qjFgF7_FODKFSn4GAF7Kl0zQ7mx3-goVXxZ5IaFEq1L_sbJ4hOcnddJKQmhvGw"><img src='facebook.jpg' /></a></li>
+
+ <li><a href="https://www.instagram.com/ruiaite_monthly/"><img src='instagram.jpg' style="border-radius:200px;" /></a></li>
+ <li><a href="https://www.youtube.com/channel/UCnOr9XK_q2QbyIO4QXiho0Q"><img src='youtube.jpg' style="border-radius:200px;" /></a></li>
+ <li><a href="https://twitter.com/ruiaitebulletin"><img src='twitter.png' style="border-radius:200px;" /></a></li>
+ </ul></div>
+ <div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 15px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;color: #33ADFF;">
+       The Ruiaite Monthly is a one-of-its-kind digital magazine managed and maintained by Ruia’s students, under the able guidance of its Chief Editors, Dr.Devayani Ganpule and Ms. Gayatri Lele.
+
+Inaugurated on 15th August 2015 by Principal Suhas Pednekar, the Monthly is the brainchild of its very first three Executive Editors - Purnima Nair, Raj Kamble and Pankag Ghuge. Their idea behind launching this innovative magazine was to provide a digital literary platform to all the Ruiaites to express their opinions, share their ideas, and hone their literary and creative skills.
+
+Boasting an active readership of hundreds of current students, alumni as well as members of the college faculty, the Ruiaite Monthly has grown into a major student-run institution. Apart from releasing monthly editions containing a vast array of theme-based columns, the Monthly also undertakes various activities like live reporting Ruia’s annual fest Utsav-Aarohan and other events, releasing expertly edited videos on special occasions, and conducting monthly discussions on particular topics through its discussion club, The Mehfil. While the Monthly was headed by Amrita Shenoy, Sarath Warrier and Aniruddha Inamdar during the academic year 2016-2017, it saw Ojas Chaudhari, Madhureema Neglur and Apurva Tudekar in the role of Executive Editors in 2017-2018, helming a team of about 85 student volunteers.
+
+This academic year (2018-2019), they are succeeded by Gayatri Godbole, Aditi Kulkarni and Aditi Patil.
+
+On this page, you will find all our monthly Editions right from August 2015 till date. Also, do not forget to check out the social media pages of “The Ruiaite Monthly” on Facebook, Instagram, Snapchat, and our YouTube channel! Happy Reading!</p> 
+<div style="background-color:#ffffff;border: 2px solid #cdd2d6;padding:15px 10px 15px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;color: #33ADFF;text-align:center;">
+ <p style="font-size:20px;">FOR MORE INFORMATION:</p><a href="https://www.ruiacollege.edu/ruia-monthly.php" style="background-color:  #33ADFF;; color: white;padding: 14px 25px;text-align: center;text-decoration: none;display: inline-block;">CLICK HERE</a></div>
+    </ons-page>
+  </template>
+   <template id="utsav.html">
+    <ons-page>
+       <script>
+     //   alert(localStorage.userFound);
+          if(localStorage.userFound !='Y')
+        {
+     document.getElementById('menu').removeAttribute("swipeable");
+    document.getElementById("hide1").style.display = "none";
+     document.getElementById("hide2").style.display = "none";
+      
+      
+        }
+         if(localStorage.userFound=='Y')
+        {
+      
+     document.getElementById("hide3").style.display = "none";
+        }
+ </script>
+      <ons-toolbar>
+        <div class="left" >
+          <ons-toolbar-button id="hide1" onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+          <ons-toolbar-button id="hide3">
+            <ons-icon icon="fa-arrow-left" onclick="fn.load('mainhome.html')">
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+        Utsav-Aarohan
+        </div><div class="right">
+<ons-toolbar-button id="hide2" icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+      </ons-toolbar>
+   <div style="background-color:#ffffff">   
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext">1 / 3</div>
+  <img src="utsav.jpg" style="width:100%">
+  <div class="text">UTSAV AAROHAN 2018
+  </div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="utsavaarohan.jpg" style="width:100%">
+  <div class="text">COMING SOON </div>
+</div>
+
+<div class="mySlides fade">
+  <div class="numbertext">3 / 3</div>
+  <img src="aarohan.jpg" style="width:100%">
+  <div class="text">STAY TUNED</div>
+</div>
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot" ></span> 
+  <span class="dot" ></span> 
+  <span class="dot" ></span> 
+</div>
+<div style="background-color:#33ADFF;border: 2px solid #cdd2d6;padding:15px 10px 70px 10px;margin-left:10px;margin-right:10px;margin-top:10px;box-shadow:3px 3px 3px 3px grey;font-size:17px;color:#ffffff;font-size:20px;">
+  <p class='outline-it'>UtsavAarohan</p>
+A college may be known for many things; its academics, facilities and amenities, sports departments or co-curricular and extracurricular activities. However, a college’s Annual Festival becomes a talking point that sets the reputation of that college amongst the youth.
+
+In the past, Ruia College has had not one, but two cultural fests conducted– Aarohan, their inter-college festival, and Utsav, their intra-college festival. This year, both the festivals was combined into an annual festival called ‘Utsav-Aarohan 2017’ which had students from Ruia college and other colleges participating in various events. The festival will span  across three days (December 17 to 19),is themed around the diversity of Indian culture and its values – “Metro Mela”.
+
+The festival was inaugurated by esteemed musician, Padma Shri and two-time National Award recipient, Hariharan.
+
+The festival then commenced with a lineup of events from the three cultural teams: Performing Arts, Fine Arts and Literary Arts which comprised of Photojournalism and Manthan (Marathi Debate). Judging the photojournalism competition were theatre actor Vineet Sharma and photographer for The Times of India, Nandu Dhurandhar and Bhakti Athavle. Renowned singer Sukhwinder Singh added a touch of entertainment with his songs.
+
+As if this much celebration weren’t enough, their cultural fest is followed by Sports festivals from December 21 to 23, which will have a multitude of sport events. There’s also a Ruia Open Marathon encircling areas in Matunga. This marathon is in association with “CRY”, the NGO.
+  
+</div></div>
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+
+    </ons-page>
+  </template>
+
+
+ <template id="all_notifications.html">
+   <ons-page id="all_notifications">
+   <ons-toolbar>
+     <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          Notifications
+        </div>
+<div class="right">
+
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+ </ons-toolbar>
+  <ons-tabbar position="top">
+      <ons-tab label="Notifications" page="n_tab1.html"  style="background-color:#33adff;" active> 
+      </ons-tab>
+      <ons-tab label="Added by me" page="n_tab2.html" style="background-color:#33adff;" onclick="my_noti()">
+      </ons-tab> 
+    </ons-tabbar>
+<template id="n_tab1.html">
+    <ons-page id="first-page">
+
+ <ons-fab position="bottom right" direction="up" onclick="fn.load('addnotification.html')" >
+<ons-icon icon="fa-plus"></ons-icon>
+</ons-fab>
+<ons-modal direction="up" id="view-notifications-load-screen">
+<div style="text-align: center">
+<p>
+<ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+</p>
+</div>
+</ons-modal>
+
+<div id="infoN"></div>
+            
+<script>
+ 
+ $(document).ready(function() {
+
+    
+    showModal();
+  // alert(localStorage.userLoggedInType);
+ //  alert(localStorage.parentemail);
+  // alert(localStorage.batch);
+  // alert(localStorage.course_name);
+     //        alert(localStorage.student_email);                
+   // alert(localStorage.userLoggedInType);   
+                        $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/f_noti.php",
+                 data: {user_type:localStorage.userLoggedInType,parentemail:localStorage.parentemail,studentemail:localStorage.student_email,studentbatch:localStorage.batch,studentcourse:localStorage.course_name,facultyemail:localStorage.faculty_email, alumniemail:localStorage.alumni_email},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+
+hideModal();
+                               
+
+                            },
+                            error: function(request, status, error) {
+
+
+                                ons.notification.alert("We are facing some connectivity issues at the moment. Please check your  internet connection and try again later.");
+                            
+
+                            }
+                                   });
+                });
+
+function my_notify(id)
+ {
+   
+  $.ajax({
+    
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/noti_details.php",
+                            data: { n_id:id },
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+
+      var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+              
+                                
+    },
+                            error: function(request, status, error) {
+
+
+                                ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            
+
+                            }
+
+
+                        });
+ }
+
+
+            </script>
+    </ons-page>
+  </template>
+  <template id="n_tab2.html">
+    <ons-page>
+
+<ons-modal direction="up" id="view-notifications-load-screen">
+<div style="text-align: center">
+<p>
+<ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+</p>
+</div>
+</ons-modal>
+
+<div id="delete_noti"></div>
+            
+<script>
+
+
+function notify(id)
+ {
+   
+  $.ajax({
+    
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/noti_details.php",
+                            data: { n_id:id },
+                            success: function(data) {
+                           //   alert(data);
+                                $("#delete_noti").html(data);
+
+      var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+              
+                                
+    },
+                            error: function(request, status, error) {
+
+
+                                ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            
+
+                            }
+
+
+                        });
+ }
+
+
+            </script>
+
+    </ons-page></template>
+  </ons-page></template>
+
+
+  <template id="events.html">
+   <ons-page id="events">
+     
+
+    <ons-toolbar>
+     <div class="left">
+          <ons-toolbar-button onclick="fn.open()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+        <div class="center">
+          EVENTS
+        </div>
+<div class="right">
+<ons-toolbar-button><ons-icon icon="ion-funnel"></ons-icon></ons-toolbar-button>&nbsp;&nbsp;
+<ons-toolbar-button icon="ion-home, material:md-home" onclick="fn.load('home.html')"></ons-toolbar-button></div>
+ </ons-toolbar>
+  <ons-tabbar position="top">
+      <ons-tab label="Intra-College" page="tab1.html"  style="background-color:#33adff;" active> 
+      </ons-tab>
+      <ons-tab label="Inter-College" page="tab2.html" style="background-color:#33adff;" onclick="intercollege()">
+      </ons-tab> 
+    </ons-tabbar>
+<template id="tab1.html">
+    <ons-page id="first-page">
+    <ons-modal direction="up" id="view-notifications-load-screen">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+                        Loading...
+                    </p>
+                </div>
+            </ons-modal>
+            <div id="infoN">
+        
+            </div>
+             <script>
+            $(document).ready(function() {
+                showModal();
+                  $.ajax({
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/show_events1.php",
+                            data: {event_type:"intra-college"},
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+                            hideModal();
+                             },
+                            error: function(request, status, error) {
+                            ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            }
+});
+});
+
+                function events(id)
+ {
+  
+  $.ajax({
+    
+                            type: "get",
+                            url: "http://projects.techsilium.com/sc/events_details.php",
+                            data: { e_id:id },
+                            success: function(data) {
+                           //   alert(data);
+                                $("#infoN").html(data);
+
+      var dataParsed = JSON.stringify(data);
+              console.log(dataParsed);
+              
+                                
+    },
+                            error: function(request, status, error) {
+
+
+                                ons.notification.alert("We are facing some connectivity issues at the moment. Please check your internet connection and try again later.");
+                            
+
+                            }
+
+
+                        });
+ }
+
+
+            </script>
+       
+   </ons-page>
+   
+   
+         </template>
+   <ons-template id="tab2.html">
+    <ons-page id="second-page">
+       <div id="intercollege"></div>
+        
+</ons-page>
+ 
+</ons-template>
+</ons-page>
+</ons-template>
+
+</body>
+</html>
+
+
+  
